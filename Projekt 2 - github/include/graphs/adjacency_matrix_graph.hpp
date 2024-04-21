@@ -13,7 +13,6 @@ private:
     int vertices;
 
 public:
-    AdjacencyMatrixGraph() : vertices(0) {}
 
     void add_vertex(T vertex) override {
         if (vertex >= vertices) {
@@ -67,8 +66,7 @@ public:
         }
     }
 
-    void createGraph(std::istream& is) {
-        AdjacencyMatrixGraph graph
+    void createGraph(std::istream& is,AdjacencyMatrixGraph graph) {
         int vertices, edges;
         is >> vertices >> edges; 
 
@@ -83,8 +81,6 @@ public:
             is >> vertex_1 >> vertex_2 >> weight;
             graph.add_edge(vertex_1, vertex_2, weight);
         }
-
-        return graph;
     }
 };
 
