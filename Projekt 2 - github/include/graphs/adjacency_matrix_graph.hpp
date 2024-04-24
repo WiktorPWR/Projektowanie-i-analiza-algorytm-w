@@ -4,7 +4,7 @@
 #include <memory>
 #include <iostream>
 
-#include "graphs/graph.hpp"
+#include "../graphs/graph.hpp"
 
 class AdjacencyMatrixGraph : public Graph
 {
@@ -18,10 +18,15 @@ public:
 
     // Metody implementowane z klasy bazowej Graph
     void add_vertex(int vertex) override;
+
     void add_edge(int vertex_1, int vertex_2, int weight) override;
+
     int has_edge(int vertex_1, int vertex_2) const override;
+
     std::vector<int> getNeighbors(int vertex) const override;
 
+    void print_graph() const override;
+    
     // Metoda statyczna do tworzenia grafu
     static std::unique_ptr<Graph> createGraph(std::istream& is);
 };
