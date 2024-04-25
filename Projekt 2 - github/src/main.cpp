@@ -1,25 +1,27 @@
 #include <iostream>
-#include <fstream>
-#include <memory>
-#include "../src/adjacency_matrix_graph.cpp"
-int main() {
-    // Tworzenie grafu
-    std::unique_ptr<Graph> graph = AdjacencyMatrixGraph::createGraph(std::cin);
+#include <fstream> // Do obsługi plików
 
-    // Dodawanie krawędzi
-    graph->add_vertex(1);
-    graph->add_vertex(2);
-    graph->add_vertex(3);
-    graph->add_edge(1,2,69);
+#include "../include/graphs/adjacency_list_graph.hpp"
+#include "../src/adjacency_list_graph.cpp"
+
+int main() {
+    // Otwórz plik zawierający dane grafu
+    std::ifstream inputFile("../sp_data/graph/graphV10D0.5.txt");
+    if (!inputFile.is_open()) {
+        std::cerr << "Nie mozna otworzyc pliku." << std::endl;
+        return 1;
+    }
+
+    // Utwórz obiekt grafu za pomocą funkcji createGraph
+    std::unique_ptr<Graph> graph = AdjacencyListGraph::createGraph(inputFile);
+
+    // Sprawdź, czy obiekt został poprawnie utworzony
+    if (!graph) {
+        std::cerr << "Nie udało się utworzyć obiektu grafu." << std::endl;
+        return 1;
+    }
+
     graph->print_graph();
-    // Pobieranie sąsiadów wierzchołka
-    // std::vector<int> neighbors = graph->getNeighbors(1);
-    // std::cout << "Neighbors of vertex 1:";
-    // for (int neighbor : neighbors) {
-    //     std::cout << " " << neighbor;
-    // }
-    // std::cout << std::endl;
 
     return 0;
 }
-

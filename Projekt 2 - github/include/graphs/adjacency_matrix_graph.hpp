@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include "../graphs/graph.hpp"
-
 class AdjacencyMatrixGraph : public Graph
 {
 private:
