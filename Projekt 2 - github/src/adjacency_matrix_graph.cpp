@@ -7,23 +7,40 @@ AdjacencyMatrixGraph::AdjacencyMatrixGraph(int numVertices) : numVertices(numVer
     adjacencyMatrix.resize(numVertices, std::vector<int>(numVertices, 0));
 }
 
-void AdjacencyMatrixGraph::add_vertex(int vertex)
-{
-    numVertices++;
-    adjacencyMatrix.resize(numVertices,std::vector<int>(numVertices,0));
-    for(int i = 0; i<= numVertices;i++)
-    {
-        adjacencyMatrix[i].resize(numVertices);
+void AdjacencyMatrixGraph::add_vertex(int vertex) {
+    if (vertex < 0) {
+        std::cerr << "Błąd: Numer wierzchołka nie może być ujemny." << std::endl;
+        return;
+    }
+
+    if (vertex >= numVertices) {
+        numVertices = vertex + 1;
+        adjacencyMatrix.resize(numVertices, std::vector<int>(numVertices, 0));
+        for (int i = 0; i < numVertices; i++) {
+            adjacencyMatrix[i].resize(numVertices);
+        }
+    } else {
+        std::cerr << "Błąd: Wierzchołek już istnieje." << std::endl;
     }
 }
 
 
-void AdjacencyMatrixGraph::add_edge(int vertex_1, int vertex_2, int weight)
-{
-    // Dodanie krawędzi między wierzchołkami u i v
-    adjacencyMatrix[vertex_1-1][vertex_2-1] = weight;
-    adjacencyMatrix[vertex_2-1][vertex_1-1] = weight;
+
+void AdjacencyMatrixGraph::add_edge(int vertex_1, int vertex_2, int weight) {
+    if (vertex_1 < 0 || vertex_1 >= numVertices || vertex_2 < 0 || vertex_2 >= numVertices) {
+        std::cerr << "Błąd: Nieprawidłowy wierzchołek." << std::endl;
+        return;
+    }
+
+    if (vertex_1 == vertex_2) {
+        std::cerr << "Błąd: Pętle nie są obsługiwane." << std::endl;
+        return;
+    }
+
+    adjacencyMatrix[vertex_1][vertex_2] = weight;
+    adjacencyMatrix[vertex_2][vertex_1] = weight;
 }
+
 
 int AdjacencyMatrixGraph::has_edge(int vertex_1, int vertex_2) const
 {
@@ -58,6 +75,7 @@ void AdjacencyMatrixGraph::print_graph() const
         std::cout << std::endl;    
     }
 }
+
 std::unique_ptr<Graph> AdjacencyMatrixGraph::createGraph(std::istream& is)  
 {  
     int numVertices, numEdges;  

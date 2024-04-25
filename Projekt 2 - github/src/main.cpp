@@ -3,6 +3,8 @@
 
 #include "../include/graphs/adjacency_list_graph.hpp"
 #include "../src/adjacency_list_graph.cpp"
+#include "../include/graphs/adjacency_matrix_graph.hpp"
+#include "../src/adjacency_matrix_graph.cpp"
 
 int main() {
     // Otwórz plik zawierający dane grafu
@@ -13,15 +15,18 @@ int main() {
     }
 
     // Utwórz obiekt grafu za pomocą funkcji createGraph
-    std::unique_ptr<Graph> graph = AdjacencyListGraph::createGraph(inputFile);
+    //std::unique_ptr<Graph> graph_list = AdjacencyListGraph::createGraph(inputFile);
+    std::unique_ptr<Graph> graph_matrix = AdjacencyMatrixGraph::createGraph(inputFile);
 
     // Sprawdź, czy obiekt został poprawnie utworzony
-    if (!graph) {
+    if (!graph_matrix) {
         std::cerr << "Nie udało się utworzyć obiektu grafu." << std::endl;
         return 1;
     }
 
-    graph->print_graph();
+    //graph_list->print_graph();
+    std::cout << std::endl;
+    graph_matrix->print_graph();
 
     return 0;
 }

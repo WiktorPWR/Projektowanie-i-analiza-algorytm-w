@@ -22,7 +22,7 @@ class AdjacencyListGraph : public Graph
 
     int has_edge(int vertex_1, int vertex_2) const override;
 
-    std::vector<std::pair<int,int>> getNeighbors(int vertex) const override;
+    std::vector<std::pair<int,int>> getNeighbors(int vertex) const ;
 
     void print_graph() const override;
 
