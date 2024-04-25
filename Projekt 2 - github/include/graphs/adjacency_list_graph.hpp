@@ -3,13 +3,28 @@
 
 #include <memory>
 
-#include "graphs/graph.hpp"
+#include "../graphs/graph.hpp"
 
 class AdjacencyListGraph : public Graph
 {
+  private:
+    std::vector<std::vector<std::pair<int,int>>> adjacency_list; // Macierz sąsiedztwa
+    int numVertices; // Liczba wierzchołków
 
   public:
     // TODO: implement all required methods
+    AdjacencyListGraph(int numVertices);
+
+    // Metody implementowane z klasy bazowej Graph
+    void add_vertex(int vertex) override;
+
+    void add_edge(int vertex_1, int vertex_2, int weight) override;
+
+    int has_edge(int vertex_1, int vertex_2) const override;
+
+    std::vector<std::pair<int,int>> getNeighbors(int vertex) const override;
+
+    void print_graph() const override;
 
     static std::unique_ptr<Graph> createGraph(std::istream& is);
 };
