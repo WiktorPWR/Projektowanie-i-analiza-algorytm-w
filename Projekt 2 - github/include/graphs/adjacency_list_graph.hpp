@@ -8,7 +8,7 @@
 class AdjacencyListGraph : public Graph
 {
   private:
-    std::vector<std::vector<std::pair<int,int>>> adjacency_list; // Macierz sąsiedztwa
+    std::vector<std::vector<std::pair<int,int>>> adjacency_list; // pierwszy numer wierchdzolek a drugi waga
     int numVertices; // Liczba wierzchołków
 
   public:
@@ -25,6 +25,8 @@ class AdjacencyListGraph : public Graph
     std::vector<std::pair<int,int>> getNeighbors(int vertex) const override;
 
     void print_graph() const override;
+
+    int graph_size() const override;
 
     static std::unique_ptr<Graph> createGraph(std::istream& is);
 };

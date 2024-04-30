@@ -1,8 +1,11 @@
 #define CATCH_CONFIG_MAIN
-
-#include "graphs/adjacency_list_graph.hpp"
-#include "graphs/adjacency_matrix_graph.hpp"
-#include "graphs/minimum_spanning_tree_algorithms.hpp"
+#define DATA_DIR_PATH "D:/PWR/algorytmy/.git/Projektowanie-i-analiza-algorytm-w/Projekt 2 - github/sp_data"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\adjacency_list_graph.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\adjacency_matrix_graph.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\minimum_spanning_tree_algorithms.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\adjacency_list_graph.cpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\adjacency_matrix_graph.cpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\minimum_spanning_tree_algorithms.cpp"
 #include <filesystem>
 #include <fstream>
 
@@ -11,7 +14,7 @@ std::ostream &operator<<(std::ostream &os, const MinimumSpanningEdge& edge){
     return os;
 }
 
-#include "catch2/catch.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\catch2\catch.hpp"
 
 using namespace std::string_literals;
 
