@@ -8,6 +8,11 @@ AdjacencyListGraph::AdjacencyListGraph(int numVertices) : numVertices(numVertice
     adjacency_list.resize(numVertices);
 }
 
+int AdjacencyListGraph::graph_size() const
+{
+    return numVertices;
+}
+
 void AdjacencyListGraph::add_vertex(int vertex) {
     if (vertex < 0) {
         std::cerr << "Błąd: Numer wierzchołka nie może być ujemny." << std::endl;

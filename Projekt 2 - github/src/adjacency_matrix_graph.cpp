@@ -8,6 +8,10 @@ AdjacencyMatrixGraph::AdjacencyMatrixGraph(int numVertices) : numVertices(numVer
         adjacencyMatrix[i].resize(numVertices, std::make_pair(-1, 0)); // -1 oznacza brak krawędzi
     }
 }
+int AdjacencyMatrixGraph::graph_size() const
+{
+    return numVertices;
+}
 
 void AdjacencyMatrixGraph::add_vertex(int vertex)
 {

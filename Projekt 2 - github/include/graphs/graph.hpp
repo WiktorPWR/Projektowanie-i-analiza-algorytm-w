@@ -12,6 +12,7 @@ public:
     virtual int has_edge(int vertex_1, int vertex_2) const = 0; // Metoda sprawdzająca istnienie krawędzi
     virtual std::vector<std::pair<int,int>> getNeighbors(int vertex) const = 0;
     virtual void print_graph() const = 0;
+    virtual int graph_size() const = 0;
 };
 
 #endif /* GRAPH_HPP_ */

@@ -26,6 +26,8 @@ class AdjacencyListGraph : public Graph
 
     void print_graph() const override;
 
+    int graph_size() const override;
+
     static std::unique_ptr<Graph> createGraph(std::istream& is);
 };
 

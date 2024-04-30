@@ -6,9 +6,11 @@
 #include "../include/graphs/adjacency_matrix_graph.hpp"
 #include "../src/adjacency_matrix_graph.cpp"
 
+#include "../src/minimum_spanning_tree_algorithms.cpp"
+
 int main() {
     // Otwórz plik zawierający dane grafu
-    std::ifstream inputFile("../sp_data/graph/graphV10D0.5.txt");
+    std::ifstream inputFile("../mst_data/graph/graphV10D0.5.txt");
     if (!inputFile.is_open()) {
         std::cerr << "Nie mozna otworzyc pliku." << std::endl;
         return 1;
@@ -20,13 +22,12 @@ int main() {
 
     // Sprawdź, czy obiekt został poprawnie utworzony
     if (!graph_matrix) {
-        std::cerr << "Nie udało się utworzyć obiektu grafu." << std::endl;
+        std::cerr << "Nie udalo sie utworzyć obiektu grafu." << std::endl;
         return 1;
     }
 
-    //graph_list->print_graph();
-    std::cout << std::endl;
-    graph_matrix->print_graph();
+    static_cast<AdjacencyMatrixGraph*>(graph_matrix.get())->print_graph();
+    
 
     return 0;
 }
