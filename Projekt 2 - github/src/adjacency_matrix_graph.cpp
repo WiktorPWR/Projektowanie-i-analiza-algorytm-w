@@ -89,22 +89,20 @@ void AdjacencyMatrixGraph::print_graph() const
         std::cout << std::endl;
     }
 }
-
 std::unique_ptr<Graph> AdjacencyMatrixGraph::createGraph(std::istream& is)
 {
+    
     int numVertices, numEdges;
-    is >> numVertices;
+    is >> numVertices >> numEdges;
+  
     if (is.fail()) {
-        std::cerr << "Błąd odczytu liczby wierzchołków." << std::endl;
+        std::cerr << "Błąd odczytu liczby wierzchołkow lub liczby krawedzi." << std::endl;
         return nullptr;
     }
 
+
+
     std::unique_ptr<AdjacencyMatrixGraph> graph = std::make_unique<AdjacencyMatrixGraph>(numVertices);
-    is >> numEdges;
-    if (is.fail()) {
-        std::cerr << "Błąd odczytu liczby krawędzi." << std::endl;
-        return nullptr;
-    }
 
     for (int i = 0; i < numEdges; ++i) {
         int vertex_1, vertex_2, weight;
@@ -113,6 +111,9 @@ std::unique_ptr<Graph> AdjacencyMatrixGraph::createGraph(std::istream& is)
             std::cerr << "Błąd odczytu danych krawędzi." << std::endl;
             return nullptr;
         }
+
+        
+
         graph->add_edge(vertex_1, vertex_2, weight);
     }
 
