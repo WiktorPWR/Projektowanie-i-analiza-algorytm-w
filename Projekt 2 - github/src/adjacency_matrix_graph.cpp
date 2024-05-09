@@ -8,10 +8,28 @@ AdjacencyMatrixGraph::AdjacencyMatrixGraph(int numVertices) : numVertices(numVer
         adjacencyMatrix[i].resize(numVertices, std::make_pair(-1, 0)); // -1 oznacza brak krawędzi
     }
 }
+
+
+void AdjacencyMatrixGraph::clear() 
+{
+    for (int i = 0; i < numVertices; ++i) {
+        for (int j = 0; j < numVertices; ++j) {
+            adjacencyMatrix[i][j] = std::make_pair(-1, 0);
+        }
+    }
+}
+
+
 int AdjacencyMatrixGraph::graph_size() const
 {
     return numVertices;
 }
+
+int AdjacencyMatrixGraph::graph_edges() const
+{
+    return numEdges;
+}
+
 
 void AdjacencyMatrixGraph::add_vertex(int vertex)
 {
@@ -52,7 +70,85 @@ void AdjacencyMatrixGraph::add_edge(int vertex_1, int vertex_2, int weight)
 
     adjacencyMatrix[vertex_1][vertex_2] = std::make_pair(vertex_2, weight);
     adjacencyMatrix[vertex_2][vertex_1] = std::make_pair(vertex_1, weight);
+    numEdges++;
 }
+
+
+
+void AdjacencyMatrixGraph::remove_vertex(int vertex)
+{
+    if (vertex < 0 || vertex >= numVertices)
+    {
+        std::cerr << "Błąd: Nieprawidłowy wierzchołek." << std::endl;
+        return;
+    }
+
+    // Usuwamy wiersz z macierzy sąsiedztwa
+    adjacencyMatrix.erase(adjacencyMatrix.begin() + vertex);
+
+    // Usuwamy kolumnę z macierzy sąsiedztwa
+    for (int i = 0; i < numVertices; ++i)
+    {
+        adjacencyMatrix[i].erase(adjacencyMatrix[i].begin() + vertex);
+    }
+
+    numVertices--;
+
+    // Dostosowujemy numery wierzchołków w pozostałych krawędziach
+    for (int i = 0; i < numVertices; ++i)
+    {
+        for (int j = 0; j < numVertices; ++j)
+        {
+            if (adjacencyMatrix[i][j].first > vertex)
+            {
+                adjacencyMatrix[i][j].first--; // Zmniejszamy numer wierzchołka
+            }
+        }
+    }
+}
+
+
+void AdjacencyMatrixGraph::remove_edge(int vertex_1, int vertex_2)
+{
+    if (vertex_1 < 0 || vertex_1 >= numVertices || vertex_2 < 0 || vertex_2 >= numVertices)
+    {
+        std::cerr << "Błąd: Nieprawidłowy wierzchołek." << std::endl;
+        return;
+    }
+
+    // Usuwamy krawędź poprzez ustawienie wagi na -1
+    adjacencyMatrix[vertex_1][vertex_2] = std::make_pair(-1, 0);
+    adjacencyMatrix[vertex_2][vertex_1] = std::make_pair(-1, 0);
+    numEdges--;
+}
+
+
+
+void AdjacencyMatrixGraph::edges() const
+{
+    std::cout << "Edges:" << std::endl;
+    for (int i = 0; i < numVertices; ++i)
+    {
+        for (int j = i + 1; j < numVertices; ++j)
+        {
+            if (adjacencyMatrix[i][j].first != -1)
+            {
+                std::cout << "(" << i << ", " << j << ") -> " << adjacencyMatrix[i][j].second << std::endl;
+            }
+        }
+    }
+}
+
+void AdjacencyMatrixGraph::vertex() const
+{
+    std::cout << "Vertices:" << std::endl;
+    for (int i = 0; i < numVertices; ++i)
+    {
+        std::cout << i << std::endl;
+    }
+}
+
+
 
 int AdjacencyMatrixGraph::has_edge(int vertex_1, int vertex_2) const
 {

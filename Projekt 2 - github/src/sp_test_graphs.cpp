@@ -1,12 +1,15 @@
 #include <sstream>
 #include <string>
 #define CATCH_CONFIG_MAIN
+#define DATA_DIR_PATH "D:/PWR/algorytmy/.git/Projektowanie-i-analiza-algorytm-w/Projekt 2 - github/sp_data"
+#include "../include/catch2/catch.hpp"
 
-#include "catch2/catch.hpp"
-
-#include "graphs/adjacency_list_graph.hpp"
-#include "graphs/adjacency_matrix_graph.hpp"
-#include "graphs/shortest_path_algorithms.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\adjacency_list_graph.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\adjacency_matrix_graph.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\shortest_path_algorithms.hpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\adjacency_list_graph.cpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\adjacency_matrix_graph.cpp"
+#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\shortest_path_algorithms.cpp"
 #include <filesystem>
 #include <fstream>
 
