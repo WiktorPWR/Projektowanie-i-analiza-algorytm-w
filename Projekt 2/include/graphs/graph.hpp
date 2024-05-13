@@ -19,7 +19,6 @@ public:
     virtual void print_graph() const = 0;
     virtual int graph_size() const = 0;
     virtual int graph_edges() const = 0;
-    virtual int incidentEdges(int vertex) const = 0;
 };
 
 #endif /* GRAPH_HPP_ */

@@ -40,6 +40,7 @@ public:
     int graph_size() const override;
 
     int graph_edges() const override;
+
     // Metoda statyczna do tworzenia grafu
     static std::unique_ptr<Graph> createGraph(std::istream& is);
 };

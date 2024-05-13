@@ -139,6 +139,8 @@ int AdjacencyListGraph::has_edge(int vertex_1, int vertex_2) const
     return false;
 }
 
+
+
 std::vector<std::pair<int,int>> AdjacencyListGraph::getNeighbors(int vertex) const
 {
     return adjacency_list[vertex];
