@@ -2,12 +2,12 @@
 #include <chrono>
 #include <random>
 #include <vector>
-#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\adjacency_list_graph.hpp"
-#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\adjacency_matrix_graph.hpp"
-#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\include\graphs\minimum_spanning_tree_algorithms.hpp"
-#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\adjacency_list_graph.cpp"
-#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\adjacency_matrix_graph.cpp"
-#include "D:\PWR\algorytmy\.git\Projektowanie-i-analiza-algorytm-w\Projekt 2 - github\src\minimum_spanning_tree_algorithms.cpp"
+#include "..\include\graphs\adjacency_list_graph.hpp"
+#include "..\include\graphs\adjacency_matrix_graph.hpp"
+#include "..\include\graphs\minimum_spanning_tree_algorithms.hpp"
+#include "..\src\adjacency_list_graph.cpp"
+#include "..\src\adjacency_matrix_graph.cpp"
+#include "..\src\minimum_spanning_tree_algorithms.cpp"
 
 
 // Function to test the algorithm on a graph
