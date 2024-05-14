@@ -11,7 +11,7 @@ struct Subset {
 
 // Funkcja znajdująca korzeń drzewa dla danego wierzchołka w algorytmie Kruskala
 int find(Subset subsets[], int i) {
-    if (subsets[i].parent != i)
+    if (subsets[i].parent != i)//Jezeli wierzchoolek ,,i" NIE jest korzeniem swojego drzewa
         subsets[i].parent = find(subsets, subsets[i].parent); // Rekurencyjnie znajduj korzeń
     return subsets[i].parent; // Zwróć korzeń drzewa
 }
@@ -53,9 +53,9 @@ void kruskal(Graph& graph, MinimumSpanningTreeResult& result) {
         subsets[v].rank = 0;    // Ranga drzewa początkowo wynosi 0
     }
 
-    int e = 0; // Licznik dodanych krawędzi
-    int i = 0; // Licznik przeglądanych krawędzi
-    while (e < V - 1 && i < edges.size()) {
+    int e = 0; // Licznik dodanych krawędzi do minimalnego drzewa
+    int i = 0; // Licznik przeglądanych krawędzi ktroe sa w wektorze edges
+    while (e < V - 1 && i < edges.size()) { //robimy to tak dlugo az nie polaczymy wszyskich weirzcholkow  lub nie przejzymy wszystkie krawedzie grafu
         auto next_edge = edges[i++]; // Wybierz następną krawędź
         int x = find(subsets, next_edge.second.first); // Znajdź korzeń drzewa dla wierzchołka 1 krawędzi
         int y = find(subsets, next_edge.second.second); // Znajdź korzeń drzewa dla wierzchołka 2 krawędzi
@@ -67,7 +67,7 @@ void kruskal(Graph& graph, MinimumSpanningTreeResult& result) {
             edge.v2 = next_edge.second.second;
             edge.weight = next_edge.first;
             result.push_back(edge); // Dodaj krawędź do wyniku
-            Union(subsets, x, y); // Połącz drzewa
+            Union(subsets, x, y); // Połącz drzewa aby uniknąć cykli w drzwie
             ++e; // Zwiększ licznik dodanych krawędzi
         }
     }
@@ -79,10 +79,11 @@ void kruskal(Graph& graph, MinimumSpanningTreeResult& result) {
 void prim(Graph& graph, MinimumSpanningTreeResult& result) {
     int V = graph.graph_size(); // Pobierz liczbę wierzchołków w grafie
     std::vector<int> parent(V, -1); // Tablica przechowująca rodziców wierzchołków w minimalnym drzewie rozpinającym
-    std::vector<int> key(V, INT_MAX); // Tablica przechowująca klucze (wagi) wierzchołków
+    std::vector<int> key(V, INT_MAX); // Tablica przechowująca klucze (wagi) wierzchołków 
     std::vector<bool> in_mst(V, false); // Tablica określająca, czy dany wierzchołek jest już w minimalnym drzewie rozpinającym
 
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq; // Kolejka priorytetowa przechowująca pary (waga, wierzchołek)
+    // Kolejka priorytetowa przechowująca pary (waga, wierzchołek) kolejka malejąca na wektorze
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq; 
 
     pq.push({0, 0}); // Dodaj wierzchołek startowy do kolejki z wagą 0
     key[0] = 0; // Ustaw wagę wierzchołka startowego na 0

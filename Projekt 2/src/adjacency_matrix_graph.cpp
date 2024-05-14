@@ -9,7 +9,7 @@ AdjacencyMatrixGraph::AdjacencyMatrixGraph(int numVertices) : numVertices(numVer
     }
 }
 
-
+// Czyszczenie macierzy sąsiedztwa
 void AdjacencyMatrixGraph::clear() 
 {
     for (int i = 0; i < numVertices; ++i) {
@@ -19,26 +19,29 @@ void AdjacencyMatrixGraph::clear()
     }
 }
 
-
+// Zwraca liczbę wierzchołków w grafie
 int AdjacencyMatrixGraph::graph_size() const
 {
     return numVertices;
 }
 
+// Zwraca liczbę krawędzi w grafie
 int AdjacencyMatrixGraph::graph_edges() const
 {
     return numEdges;
 }
 
-
+// Dodaje nowy wierzchołek do grafu
 void AdjacencyMatrixGraph::add_vertex(int vertex)
 {
+    // Sprawdza, czy numer wierzchołka jest poprawny
     if (vertex < 0)
     {
         std::cerr << "Błąd: Numer wierzchołka nie może być ujemny." << std::endl;
         return;
     }
 
+    // Dodaje wierzchołek, jeśli numer jest większy od dotychczasowego rozmiaru macierzy sąsiedztwa
     if (vertex >= numVertices)
     {
         numVertices = vertex + 1;
@@ -54,27 +57,30 @@ void AdjacencyMatrixGraph::add_vertex(int vertex)
     }
 }
 
+// Dodaje krawędź między dwoma wierzchołkami
 void AdjacencyMatrixGraph::add_edge(int vertex_1, int vertex_2, int weight)
 {
+    // Sprawdza, czy numery wierzchołków są poprawne
     if (vertex_1 < 0 || vertex_1 >= numVertices || vertex_2 < 0 || vertex_2 >= numVertices)
     {
         std::cerr << "Błąd: Nieprawidłowy wierzchołek." << std::endl;
         return;
     }
 
+    // Nie dodaje pętli
     if (vertex_1 == vertex_2)
     {
         std::cerr << "Błąd: Pętle nie są obsługiwane." << std::endl;
         return;
     }
 
+    // Dodaje krawędź między wierzchołkami
     adjacencyMatrix[vertex_1][vertex_2] = std::make_pair(vertex_2, weight);
     adjacencyMatrix[vertex_2][vertex_1] = std::make_pair(vertex_1, weight);
     numEdges++;
 }
 
-
-
+// Usuwa wierzchołek z grafu
 void AdjacencyMatrixGraph::remove_vertex(int vertex)
 {
     if (vertex < 0 || vertex >= numVertices)
@@ -83,10 +89,10 @@ void AdjacencyMatrixGraph::remove_vertex(int vertex)
         return;
     }
 
-    // Usuwamy wiersz z macierzy sąsiedztwa
+    // Usuwa wiersz z macierzy sąsiedztwa
     adjacencyMatrix.erase(adjacencyMatrix.begin() + vertex);
 
-    // Usuwamy kolumnę z macierzy sąsiedztwa
+    // Usuwa kolumnę z macierzy sąsiedztwa
     for (int i = 0; i < numVertices; ++i)
     {
         adjacencyMatrix[i].erase(adjacencyMatrix[i].begin() + vertex);
@@ -94,20 +100,20 @@ void AdjacencyMatrixGraph::remove_vertex(int vertex)
 
     numVertices--;
 
-    // Dostosowujemy numery wierzchołków w pozostałych krawędziach
+    // Aktualizuje numery wierzchołków w pozostałych krawędziach
     for (int i = 0; i < numVertices; ++i)
     {
         for (int j = 0; j < numVertices; ++j)
         {
             if (adjacencyMatrix[i][j].first > vertex)
             {
-                adjacencyMatrix[i][j].first--; // Zmniejszamy numer wierzchołka
+                adjacencyMatrix[i][j].first--; // Zmniejsza numer wierzchołka
             }
         }
     }
 }
 
-
+// Usuwa krawędź między dwoma wierzchołkami
 void AdjacencyMatrixGraph::remove_edge(int vertex_1, int vertex_2)
 {
     if (vertex_1 < 0 || vertex_1 >= numVertices || vertex_2 < 0 || vertex_2 >= numVertices)
@@ -116,14 +122,13 @@ void AdjacencyMatrixGraph::remove_edge(int vertex_1, int vertex_2)
         return;
     }
 
-    // Usuwamy krawędź poprzez ustawienie wagi na -1
+    // Usuwa krawędź poprzez ustawienie wagi na -1
     adjacencyMatrix[vertex_1][vertex_2] = std::make_pair(-1, 0);
     adjacencyMatrix[vertex_2][vertex_1] = std::make_pair(-1, 0);
     numEdges--;
 }
 
-
-
+// Wyświetla wszystkie krawędzie w grafie
 void AdjacencyMatrixGraph::edges() const
 {
     std::cout << "Edges:" << std::endl;
@@ -139,6 +144,7 @@ void AdjacencyMatrixGraph::edges() const
     }
 }
 
+// Wyświetla wszystkie wierzchołki w grafie
 void AdjacencyMatrixGraph::vertex() const
 {
     std::cout << "Vertices:" << std::endl;
@@ -148,13 +154,13 @@ void AdjacencyMatrixGraph::vertex() const
     }
 }
 
-
-
+// Sprawdza, czy istnieje krawędź między dwoma wierzchołkami
 int AdjacencyMatrixGraph::has_edge(int vertex_1, int vertex_2) const
 {
     return adjacencyMatrix[vertex_1][vertex_2].first != -1;
 }
 
+// Zwraca listę sąsiadów danego wierzchołka
 std::vector<std::pair<int, int>> AdjacencyMatrixGraph::getNeighbors(int vertex) const
 {
     std::vector<std::pair<int, int>> neighbors;
@@ -170,6 +176,7 @@ std::vector<std::pair<int, int>> AdjacencyMatrixGraph::getNeighbors(int vertex) 
     return neighbors;
 }
 
+// Wyświetla graf
 void AdjacencyMatrixGraph::print_graph() const
 {
     for (int i = 0; i < numVertices; ++i)
@@ -185,21 +192,22 @@ void AdjacencyMatrixGraph::print_graph() const
         std::cout << std::endl;
     }
 }
+
+// Tworzy graf na podstawie danych wczytanych ze strumienia wejściowego
 std::unique_ptr<Graph> AdjacencyMatrixGraph::createGraph(std::istream& is)
 {
-    
     int numVertices, numEdges;
     is >> numVertices >> numEdges;
-  
+
     if (is.fail()) {
-        std::cerr << "Błąd odczytu liczby wierzchołkow lub liczby krawedzi." << std::endl;
+        std::cerr << "Błąd odczytu liczby wierzchołków lub liczby krawędzi." << std::endl;
         return nullptr;
     }
 
-
-
+    // Tworzy nowy obiekt grafu na podstawie liczby wierzchołków
     std::unique_ptr<AdjacencyMatrixGraph> graph = std::make_unique<AdjacencyMatrixGraph>(numVertices);
 
+    // Wczytuje krawędzie
     for (int i = 0; i < numEdges; ++i) {
         int vertex_1, vertex_2, weight;
         is >> vertex_1 >> vertex_2 >> weight;
@@ -208,8 +216,7 @@ std::unique_ptr<Graph> AdjacencyMatrixGraph::createGraph(std::istream& is)
             return nullptr;
         }
 
-        
-
+        // Dodaje krawędź do grafu
         graph->add_edge(vertex_1, vertex_2, weight);
     }
 
